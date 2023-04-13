@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './table.css'
 
 function Tabla({ datos }) {
   const [orden, setOrden] = useState("asc");

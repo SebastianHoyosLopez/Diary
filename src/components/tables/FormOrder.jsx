@@ -3,7 +3,6 @@ import TableOrder from './TableOrder'
 import './form.css'
 
 function FormOrder({setDb, db}) {
-  // const [db, setDb] = useState([])
 
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
@@ -62,7 +61,6 @@ function FormOrder({setDb, db}) {
       <br />
       <button type="submit">Enviar</button>
     </form>
-    {/* <TableOrder datos={db} /> */}
     </>
   );
 }
