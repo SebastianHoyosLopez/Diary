@@ -10,7 +10,7 @@ const Home = () => {
       <h2 style={{ textAlign: "center" }}>Horarios serenatas</h2>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <FormOrder setDb={setDb} db={db} />
-        <TableOrder datos={db} />
+        <TableOrder setDb={setDb} datos={db} />
       </div>
     </div>
   );

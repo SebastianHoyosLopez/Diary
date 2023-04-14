@@ -1,66 +1,93 @@
 import React, { useState } from "react";
-import TableOrder from './TableOrder'
-import './form.css'
+import "./form.css";
 
-function FormOrder({setDb, db}) {
+const municipalitys = [
+  "Abejorral",
+  "Alejandría",
+  "Argelia",
+  "Cocorná",
+  "El Carmen de Viboral",
+  "El Santuario",
+  "El Peñol",
+  "Granada",
+  "Guarne",
+  "La Ceja",
+  "La Unión",
+  "Marinilla",
+  "Nariño",
+  "Rionegro",
+  "San Carlos",
+  "San Francisco",
+  "San Luis",
+  "San Rafael",
+  "San Vicente",
+];
 
-  const [fecha, setFecha] = useState("");
-  const [hora, setHora] = useState("");
-  const [lugar, setLugar] = useState("");
-  const [nombre, setNombre] = useState("");
+function FormOrder({ setDb, db }) {
+  const [date, setDate] = useState("");
+  const [hour, setHour] = useState("");
+  const [place, setPlace] = useState("");
+  const [name, setName] = useState("");
+
+  const [municipality, setMunicipality] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { fecha, hora, lugar, nombre };
-    console.log(data);
-    setDb([...db, data])
-    setFecha("");
-    setHora("");
-    setLugar("");
-    setNombre("");
+    const data = { date, hour, place, name, municipality };
+
+    setDb([...db, data]);
+    setDate("");
+    setHour("");
+    setPlace("");
+    setName("");
+    setMunicipality("");
   };
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Fecha:
+      <form onSubmit={handleSubmit}>
         <input
           type="date"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
+          value={date}
+          placeholder="fecha"
+          onChange={(e) => setDate(e.target.value)}
         />
-      </label>
-      <br />
-      <label>
-        Hora:
+        <br />
         <input
           type="time"
-          value={hora}
-          onChange={(e) => setHora(e.target.value)}
+          value={hour}
+          placeholder="Hora"
+          onChange={(e) => setHour(e.target.value)}
         />
-      </label>
-      <br />
-      <label>
-        Lugar:
+        <br />
         <input
           type="text"
-          value={lugar}
-          onChange={(e) => setLugar(e.target.value)}
+          value={place}
+          placeholder="Descriptión de lugar"
+          onChange={(e) => setPlace(e.target.value)}
         />
-      </label>
-      <br />
-      <label>
-        Nombre:
+        <br />
         <input
           type="text"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          value={name}
+          placeholder="Nombre"
+          onChange={(e) => setName(e.target.value)}
         />
-      </label>
-      <br />
-      <button type="submit">Enviar</button>
-    </form>
+        <br />
+        <select
+          value={municipality}
+          onChange={(e) => setMunicipality(e.target.value)}
+        >
+          <option value="">Seleccione un municipio ---</option>
+          {municipalitys.map((m) => (
+            <option key={m} value={m}>
+              {m}
+            </option>
+          ))}
+        </select>
+        <br />
+        <button type="submit">Enviar</button>
+      </form>
     </>
   );
 }

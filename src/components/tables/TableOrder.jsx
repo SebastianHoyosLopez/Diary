@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './table.css'
 
-function Tabla({ datos }) {
+function Tabla({ datos, setDb }) {
   const [orden, setOrden] = useState("asc");
 
   const sortedData = datos.sort((a, b) => {
@@ -12,23 +12,34 @@ function Tabla({ datos }) {
     }
   });
 
+  const handleDeleteClick = (id) => {
+    const newData = datos.filter((dato) => `${dato.date}-${dato.hour}`!== id)
+    setDb(newData)
+  }
+
   return (
     <table>
       <thead>
         <tr>
           <th>Fecha</th>
           <th>Hora</th>
+          <th>Municipio</th>
           <th>Lugar</th>
           <th>Nombre</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         {sortedData.map((dato) => (
-          <tr key={`${dato.fecha}-${dato.hora}`}>
-            <td>{dato.fecha}</td>
-            <td>{dato.hora}</td>
-            <td>{dato.lugar}</td>
-            <td>{dato.nombre}</td>
+          <tr key={`${dato.date}-${dato.hour}`}>
+            <td>{dato.date}</td>
+            <td>{dato.hour}</td>
+            <td>{dato.municipality}</td>
+            <td>{dato.place}</td>
+            <td>{dato.name}</td>
+            <td>
+              <button onClick={() => handleDeleteClick(`${dato.date}-${dato.hour}`)}>Eliminar</button>
+            </td>
           </tr>
         ))}
       </tbody>
