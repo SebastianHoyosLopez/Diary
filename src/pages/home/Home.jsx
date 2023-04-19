@@ -4,6 +4,7 @@ import TableOrder from "../../components/tables/TableOrder";
 
 const Home = () => {
   const [db, setDb] = useState([]);
+  console.log(db)
 
   return (
     <div>

@@ -70,7 +70,7 @@ function FormOrder({ setDb, db }) {
         <input
           type="text"
           value={name}
-          placeholder="Nombre"
+          placeholder="Nombre quien contrata"
           onChange={(e) => setName(e.target.value)}
         />
         <br />
