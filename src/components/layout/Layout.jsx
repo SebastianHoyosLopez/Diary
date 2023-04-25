@@ -16,10 +16,10 @@ const Layout = () => {
           <li style={{
             marginRight: "7px",
           }}>
-            <Link to="/">Home</Link>
+            <Link to="/">Agenda</Link>
           </li>
           <li>
-            <Link to="/new">Crear</Link>
+            <Link to="/new">Historial</Link>
           </li>
         </ul>
       </nav>

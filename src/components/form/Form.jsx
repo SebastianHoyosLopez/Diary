@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./form.css";
+import axios from "axios";
 
 const municipalitys = [
   "Abejorral",
@@ -28,19 +29,30 @@ function FormOrder({ setDb, db }) {
   const [hour, setHour] = useState("");
   const [place, setPlace] = useState("");
   const [name, setName] = useState("");
-
   const [municipality, setMunicipality] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const now = new Date(); 
+  const selectedDateTime = new Date(`${date}T${hour}`); 
+
+  if (selectedDateTime <= now) { 
+    alert("Seleccione una fecha y hora válida en el futuro.");
+    return;
+  }
+
     const data = { date, hour, place, name, municipality };
 
-    setDb([...db, data]);
-    setDate("");
-    setHour("");
-    setPlace("");
-    setName("");
-    setMunicipality("");
+    axios.post("http://localhost:3001/serenatas", data).then((response) => {
+      setDb([...db, response.data]);
+      setDate("");
+      setHour("");
+      setPlace("");
+      setName("");
+      setMunicipality("");
+    })
+    .catch(error => console.log(error))
   };
 
   return (
