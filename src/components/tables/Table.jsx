@@ -75,13 +75,13 @@ function Tabla({ datos, set }) {
           setElementoEliminar(null);
         }}
       />
-      <ModalEdit
-        isOpen={selectElement}
+      {/* <ModalEdit
+        isOpen2={selectElement}
         onClose={() => setSelectElement(null)}
         data={selectElement}
         set={set}
         db={datos}
-      />
+      /> */}
     </table>
   );
 }
