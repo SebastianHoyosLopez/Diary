@@ -24,35 +24,57 @@ const municipalitys = [
   "San Vicente",
 ];
 
-function FormOrder({ setDb, db }) {
-  const [date, setDate] = useState("");
-  const [hour, setHour] = useState("");
-  const [place, setPlace] = useState("");
-  const [name, setName] = useState("");
-  const [municipality, setMunicipality] = useState("");
+function Form({ setDb, db, order, onClose }) {
+  const [date, setDate] = useState(order ? order.date : "");
+  const [hour, setHour] = useState(order ? order.hour : "");
+  const [place, setPlace] = useState(order ? order.place : "");
+  const [name, setName] = useState(order ? order.name : "");
+  const [municipality, setMunicipality] = useState(
+    order ? order.municipality : ""
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const now = new Date(); 
-  const selectedDateTime = new Date(`${date}T${hour}`); 
+    const now = new Date();
+    const selectedDateTime = new Date(`${date}T${hour}`);
 
-  if (selectedDateTime <= now) { 
-    alert("Seleccione una fecha y hora válida en el futuro.");
-    return;
-  }
+    if (selectedDateTime <= now) {
+      alert("Seleccione una fecha y hora válida en el futuro.");
+      return;
+    }
 
     const data = { date, hour, place, name, municipality };
 
-    axios.post("http://localhost:3001/serenatas", data).then((response) => {
-      setDb([...db, response.data]);
-      setDate("");
-      setHour("");
-      setPlace("");
-      setName("");
-      setMunicipality("");
-    })
-    .catch(error => console.log(error))
+    if (order) {
+      axios
+        .put(`http://localhost:3001/serenatas/${order.id}`, data)
+        .then((response) => {
+          setDb(
+            db.map((item) => (item.id === order.id ? response.data : item))
+          );
+          setDate("");
+          setHour("");
+          setPlace("");
+          setName("");
+          setMunicipality("");
+          onClose()
+        })
+        .catch((error) => console.log(error));
+    } else {
+      axios
+        .post("http://localhost:3001/serenatas", data)
+        .then((response) => {
+          setDb([...db, response.data]);
+          setDate("");
+          setHour("");
+          setPlace("");
+          setName("");
+          setMunicipality("");
+
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -75,7 +97,7 @@ function FormOrder({ setDb, db }) {
         <input
           type="text"
           value={place}
-          placeholder="Descriptión de lugar"
+          placeholder="Descripción de lugar"
           onChange={(e) => setPlace(e.target.value)}
         />
         <br />
@@ -91,17 +113,17 @@ function FormOrder({ setDb, db }) {
           onChange={(e) => setMunicipality(e.target.value)}
         >
           <option value="">Seleccione un municipio ---</option>
-          {municipalitys.map((m) => (
-            <option key={m} value={m}>
-              {m}
+          {municipalitys.map((municipality) => (
+            <option key={municipality} value={municipality}>
+              {municipality}
             </option>
           ))}
         </select>
         <br />
-        <button type="submit">Enviar</button>
+        <button type="submit">{order ? "Actualizar" : "Guardar"}</button>
       </form>
     </>
   );
 }
 
-export default FormOrder;
+export default Form;

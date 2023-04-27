@@ -2,7 +2,7 @@ import React from "react";
 import ReactModal from "react-modal";
 import "./ModalConfirmacion.css";
 
-function ConfirmacionModal({ isOpen, onClose, onConfirm }) {
+function ConfirmationModal({ isOpen, onClose, onConfirm }) {
   const handleCerrarModal = () => {
     onClose();
   };
@@ -19,9 +19,9 @@ function ConfirmacionModal({ isOpen, onClose, onConfirm }) {
       overlayClassName="ReactModal__Overlay"
       ariaHideApp={false}
     >
-      <div className="ConfirmacionModal">
+      <div className="ConfirmationModal">
         <h2>¿Está seguro que desea eliminar este elemento?</h2>
-        <div className="ConfirmacionModal__Buttons">
+        <div className="ConfirmationModal__Buttons">
           <button onClick={handleCerrarModal}>Cancelar</button>
           <button onClick={handleConfirmarModal}>Eliminar</button>
         </div>
@@ -30,4 +30,4 @@ function ConfirmacionModal({ isOpen, onClose, onConfirm }) {
   );
 }
 
-export default ConfirmacionModal;
+export default ConfirmationModal;

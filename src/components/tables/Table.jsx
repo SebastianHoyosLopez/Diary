@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import Modal from "react-modal";
 
 import "./table.css";
-import ConfirmacionModal from "../modal/confirmacionModal";
+import ConfirmationModal from "../modal/ConfirmationModal";
+import ModalEdit from "../modal/ModalEdit";
 
 function Tabla({ datos, set }) {
   const [elementoEliminar, setElementoEliminar] = useState(null);
+  const [selectElement, setSelectElement] = useState(null);
 
   const handleDeleteClick = (id) => {
     setElementoEliminar(id);
+  };
+
+  const handleRowClick = (data) => {
+    setSelectElement(data);
   };
 
   const handleDeleteConfirm = (id) => {
@@ -36,12 +41,12 @@ function Tabla({ datos, set }) {
           <th>Municipio 🌆</th>
           <th>Lugar ۩</th>
           <th>Nombre 🐵</th>
-          <th></th>
+          <th>Cantida: {datos.length}</th>
         </tr>
       </thead>
       <tbody>
         {datos.map((dato) => (
-          <tr key={`${dato.date}-${dato.hour}`}>
+          <tr key={dato.id}>
             <td>{dato.date}</td>
             <td>{dato.hour}</td>
             <td>{dato.municipality}</td>
@@ -49,9 +54,12 @@ function Tabla({ datos, set }) {
             <td>{dato.name}</td>
             <td>
               {set ? (
-                <button onClick={() => handleDeleteClick(dato.id)} id="trash">
-                  Eliminar
-                </button>
+                <>
+                  <button onClick={() => handleDeleteClick(dato.id)}>
+                    Eliminar
+                  </button>
+                  <button onClick={() => handleRowClick(dato)}>Editar</button>
+                </>
               ) : (
                 ""
               )}
@@ -59,13 +67,20 @@ function Tabla({ datos, set }) {
           </tr>
         ))}
       </tbody>
-      <ConfirmacionModal
+      <ConfirmationModal
         isOpen={elementoEliminar !== null}
         onClose={() => setElementoEliminar(null)}
         onConfirm={() => {
           handleDeleteConfirm(elementoEliminar);
           setElementoEliminar(null);
         }}
+      />
+      <ModalEdit
+        isOpen={selectElement}
+        onClose={() => setSelectElement(null)}
+        data={selectElement}
+        set={set}
+        db={datos}
       />
     </table>
   );
