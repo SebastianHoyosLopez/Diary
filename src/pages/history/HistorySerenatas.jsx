@@ -6,16 +6,11 @@ const Create = () => {
 
   useEffect(() => {
     fetch('http://localhost:3001/serenatas/History')
-      .then(res => {
-        if(!res.ok) {
-          throw new Error("Error al realizar la solicitud!");
-        }
-        res.json()
-      })
+      .then(res => res.json())
       .then(response => {
         setHistory(response)
       })
-  }, [])
+    }, [])
 
   return (
     <div>

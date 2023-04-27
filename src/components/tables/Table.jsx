@@ -7,13 +7,17 @@ import ModalEdit from "../modal/ModalEdit";
 function Tabla({ datos, set }) {
   const [elementoEliminar, setElementoEliminar] = useState(null);
   const [selectElement, setSelectElement] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
 
   const handleDeleteClick = (id) => {
     setElementoEliminar(id);
+    setOpenDelete(true);
   };
 
   const handleRowClick = (data) => {
     setSelectElement(data);
+    setOpen(true);
   };
 
   const handleDeleteConfirm = (id) => {
@@ -41,7 +45,7 @@ function Tabla({ datos, set }) {
           <th>Municipio 🌆</th>
           <th>Lugar ۩</th>
           <th>Nombre 🐵</th>
-          <th>Cantida: {datos.length}</th>
+          {/* <th>Cantida: {!datos.length}</th> */}
         </tr>
       </thead>
       <tbody>
@@ -67,21 +71,33 @@ function Tabla({ datos, set }) {
           </tr>
         ))}
       </tbody>
-      <ConfirmationModal
-        isOpen={elementoEliminar !== null}
-        onClose={() => setElementoEliminar(null)}
-        onConfirm={() => {
-          handleDeleteConfirm(elementoEliminar);
-          setElementoEliminar(null);
-        }}
-      />
-      {/* <ModalEdit
-        isOpen2={selectElement}
-        onClose={() => setSelectElement(null)}
-        data={selectElement}
-        set={set}
-        db={datos}
-      /> */}
+      {set ? (
+        <>
+          <ConfirmationModal
+            isOpen={openDelete}
+            onClose={() => {
+              setElementoEliminar(null);
+              setOpenDelete(false);
+            }}
+            onConfirm={() => {
+              handleDeleteConfirm(elementoEliminar);
+              setElementoEliminar(null);
+            }}
+          />
+          <ModalEdit
+            isOpen={open}
+            onClose={() => {
+              setSelectElement(null);
+              setOpen(false);
+            }}
+            data={selectElement}
+            set={set}
+            db={datos}
+          />
+        </>
+      ) : (
+        ""
+      )}
     </table>
   );
 }

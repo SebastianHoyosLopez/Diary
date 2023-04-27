@@ -3,14 +3,14 @@ import ReactModal from "react-modal";
 import "./ModalConfirmacion.css";
 import Form from "../form/Form";
 
-function ModalEdit({ isOpen2, onClose, data, set, db }) {
+function ModalEdit({ isOpen, onClose, data, set, db }) {
   const handleCloseModal = () => {
     onClose();
   };
 
   return (
     <ReactModal
-      isOpen={isOpen2}
+      isOpen={isOpen}
       onRequestClose={handleCloseModal}
       className="ReactModal__Content"
       overlayClassName="ReactModal__Overlay"
