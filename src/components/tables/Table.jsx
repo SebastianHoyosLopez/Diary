@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./table.css";
 import ConfirmationModal from "../modal/ConfirmationModal";
@@ -9,6 +9,12 @@ function Tabla({ datos, set }) {
   const [selectElement, setSelectElement] = useState(null);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [tablaDatos, setTablaDatos] = useState([]);
+
+  useEffect(() => {
+    setTablaDatos(datos);
+  }, [datos, set, setTablaDatos]);
+
 
   const handleDeleteClick = (id) => {
     setElementoEliminar(id);
@@ -28,12 +34,15 @@ function Tabla({ datos, set }) {
         if (!response.ok) {
           throw new Error("Error al realizar la solicitud!");
         }
-        const newData = datos.filter((dato) => dato.id !== id);
+        const newData = tablaDatos.filter((dato) => dato.id !== id);
+        setTablaDatos(newData)
         set(newData);
       })
       .catch((error) => {
         console.log("Error:", error);
       });
+      setOpenDelete(false);
+
   };
 
   return (
@@ -45,11 +54,11 @@ function Tabla({ datos, set }) {
           <th>Municipio 🌆</th>
           <th>Lugar ۩</th>
           <th>Nombre 🐵</th>
-          {/* <th>Cantida: {!datos.length}</th> */}
+          <th>Cantidad: {datos.length}</th>
         </tr>
       </thead>
       <tbody>
-        {datos.map((dato) => (
+        {tablaDatos && tablaDatos.map((dato) => (
           <tr key={dato.id}>
             <td>{dato.date}</td>
             <td>{dato.hour}</td>
@@ -71,7 +80,7 @@ function Tabla({ datos, set }) {
           </tr>
         ))}
       </tbody>
-      {set ? (
+      {set && (
         <>
           <ConfirmationModal
             isOpen={openDelete}
@@ -95,8 +104,6 @@ function Tabla({ datos, set }) {
             db={datos}
           />
         </>
-      ) : (
-        ""
       )}
     </table>
   );

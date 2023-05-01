@@ -12,6 +12,7 @@ const municipalitys = [
   "El Peñol",
   "Granada",
   "Guarne",
+  "Guatape",
   "La Ceja",
   "La Unión",
   "Marinilla",
@@ -78,7 +79,8 @@ function Form({ setDb, db, order, onClose }) {
   };
 
   return (
-    <>
+    <div style={{display: "flex", flexDirection: "column", marginLeft: "4rem", marginRight: "1rem", marginTop: "-3rem"}}>
+      <h1 style={{textAlign: "center"}}>Agendar</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="date"
@@ -122,7 +124,7 @@ function Form({ setDb, db, order, onClose }) {
         <br />
         <button type="submit">{order ? "Actualizar" : "Guardar"}</button>
       </form>
-    </>
+    </div>
   );
 }
 
