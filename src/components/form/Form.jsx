@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import "./form.css";
 import axios from "axios";
 
+const Responsibles = [
+  { name: "Henry", code: 2 },
+  { name: "Tatan", code: 4 },
+  { name: "Alex", code: 3 },
+  { name: "Camilo", code: 6 },
+  { name: "Hugo", code: 7 },
+];
+
 const municipalitys = [
   "Abejorral",
   "Alejandría",
@@ -23,13 +31,18 @@ const municipalitys = [
   "San Luis",
   "San Rafael",
   "San Vicente",
+  "Santuario"
 ];
 
 function Form({ setDb, db, order, onClose }) {
   const [date, setDate] = useState(order ? order.date : "");
   const [hour, setHour] = useState(order ? order.hour : "");
-  const [place, setPlace] = useState(order ? order.place : "");
-  const [name, setName] = useState(order ? order.name : "");
+  const [description, setDescription] = useState(
+    order ? order.description : ""
+  );
+  const [responsibleOfId, setResponsibleOfId] = useState(
+    order ? order.responsibleOfId : null
+  );
   const [municipality, setMunicipality] = useState(
     order ? order.municipality : ""
   );
@@ -45,42 +58,50 @@ function Form({ setDb, db, order, onClose }) {
       return;
     }
 
-    const data = { date, hour, place, name, municipality };
+    const data = { date, hour, description, responsibleOfId: parseInt(responsibleOfId), municipality };
 
     if (order) {
       axios
-        .put(`http://localhost:3001/serenatas/${order.id}`, data)
+        .put(`http://localhost:3000/serenatas/${order.id}`, data)
         .then((response) => {
           setDb(
             db.map((item) => (item.id === order.id ? response.data : item))
           );
           setDate("");
           setHour("");
-          setPlace("");
-          setName("");
+          setDescription("");
+          setResponsibleOfId("");
           setMunicipality("");
-          onClose()
+          onClose();
         })
         .catch((error) => console.log(error));
     } else {
+      console.log(data)
       axios
-        .post("http://localhost:3001/serenatas", data)
+        .post("http://localhost:3000/serenatas", data)
         .then((response) => {
           setDb([...db, response.data]);
           setDate("");
           setHour("");
-          setPlace("");
-          setName("");
+          setDescription("");
+          setResponsibleOfId("");
           setMunicipality("");
-
         })
         .catch((error) => console.log(error));
     }
   };
 
   return (
-    <div style={{display: "flex", flexDirection: "column", marginLeft: "4rem", marginRight: "1rem", marginTop: "-3rem"}}>
-      <h1 style={{textAlign: "center"}}>Agendar</h1>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        marginLeft: "4rem",
+        marginRight: "1rem",
+        marginTop: "-3rem",
+      }}
+    >
+      <h1 style={{ textAlign: "center" }}>Agendar</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="date"
@@ -98,20 +119,25 @@ function Form({ setDb, db, order, onClose }) {
         <br />
         <input
           type="text"
-          value={place}
+          value={description}
           placeholder="Descripción de lugar"
-          onChange={(e) => setPlace(e.target.value)}
-        />
-        <br />
-        <input
-          type="text"
-          value={name}
-          placeholder="Nombre quien contrata"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <br />
         <select
-          value={municipality}
+          value={responsibleOfId != null ? responsibleOfId : ""}
+          onChange={(e) => setResponsibleOfId(e.target.value)}
+        >
+          <option value="">Selecione Encargado ----</option>
+          {Responsibles.map((responsible) => (
+            <option key={responsible.code} value={responsible.code}>
+              {responsible.code}
+            </option>
+          ))}
+        </select>
+        <br />
+        <select
+          value={municipality  != null ? municipality : ""}
           onChange={(e) => setMunicipality(e.target.value)}
         >
           <option value="">Seleccione un municipio ---</option>
