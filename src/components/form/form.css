@@ -51,7 +51,7 @@ input:invalid {
 }
 
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: #4CAF50; 
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -61,5 +61,5 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #0062cc;
+  background-color: #e60000;
 }

@@ -4,17 +4,17 @@ import ModalEdit from "../modal/ModalEdit";
 
 const TableGlobal = ({
   datos,
-  set = null,
+  setDatos = null,
   Delete = null,
   setOpenDelete = null,
   openDelete = null,
   columns = [
-    {name: "Fecha 📆"},
-    {name: "Hora ⏰"},
-    {name: "Municipio 🌆"},
-    {name: "Descripción ۩"},
-    {name: "Encargado 🐵"},
-    {name: "Acción"},
+    { name: "Fecha 📆" },
+    { name: "Hora ⏰" },
+    { name: "Municipio 🌆" },
+    { name: "Descripción ۩" },
+    { name: "Encargado 🐵" },
+    { name: "Acción" },
   ],
 }) => {
   const [elementoEliminar, setElementoEliminar] = useState(null);
@@ -22,9 +22,11 @@ const TableGlobal = ({
   const [tablaDatos, setTablaDatos] = useState([]);
   const [open, setOpen] = useState(false);
 
+  console.log(datos);
+
   useEffect(() => {
     setTablaDatos(datos);
-  }, [datos, set, setTablaDatos]);
+  }, [datos, setDatos, setTablaDatos]);
 
   const handleDeleteClick = (id) => {
     setElementoEliminar(id);
@@ -47,29 +49,44 @@ const TableGlobal = ({
       </thead>
       <tbody>
         {tablaDatos &&
-          tablaDatos.map((dato) => (
-            <tr key={dato.id}>
-              <td>{dato.date}</td>
-              <td>{dato.hour}</td>
-              <td>{dato.municipality}</td>
-              <td>{dato?.description}</td>
-              <td>{dato?.responsibleOf?.name}</td>
-              <td>
-                {set ? (
+          tablaDatos.map((dato) => {
+            const dateObj = new Date(dato.date);
+            const options = { weekday: "long" };
+            const dayOfWeek = dateObj.toLocaleDateString("es-CO", options);
+            return (
+              <tr key={dato.id}>
+                <td>
+                  {dato.date}-{dayOfWeek}
+                </td>
+                <td>{dato.hour}</td>
+                <td>{dato.municipality}</td>
+                <td>{dato?.description}</td>
+                {dato.responsibleOf && (
                   <>
-                    <button onClick={() => handleDeleteClick(dato.id)}>
-                      Eliminar
-                    </button>
-                    <button onClick={() => handleRowClick(dato)}>Editar</button>
+                    <td>{dato?.responsibleOf?.name}</td>
+                    {setDatos && (
+                      <td>
+                        {setDatos ? (
+                          <>
+                            <button onClick={() => handleDeleteClick(dato.id)}>
+                              Eliminar
+                            </button>
+                            <button onClick={() => handleRowClick(dato)}>
+                              Editar
+                            </button>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </td>
+                    )}
                   </>
-                ) : (
-                  ""
                 )}
-              </td>
-            </tr>
-          ))}
+              </tr>
+            );
+          })}
       </tbody>
-      {set && (
+      {setDatos && (
         <>
           <ConfirmationModal
             isOpen={openDelete}
@@ -89,7 +106,7 @@ const TableGlobal = ({
               setOpen(false);
             }}
             data={selectElement}
-            set={set}
+            setDatos={setDatos}
             db={datos}
           />
         </>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./table.css";
 import TableGlobal from "./TableGlobal";
 
-function ContainerData({ datos, set }) {
+function ContainerData({ datos, setDatos }) {
   const [openDelete, setOpenDelete] = useState(false);
   const [tablaDatos, setTablaDatos] = useState([]);
 
@@ -26,18 +26,18 @@ function ContainerData({ datos, set }) {
   };
 
   const columns = [
-    {name: "Fecha 📆"},
-    {name: "Hora ⏰"},
-    {name: "Municipio 🌆"},
-    {name: "Descripción ۩"},
-    {name: "Encargado 🐵"},
+    {name: "Fecha"},
+    {name: "Hora"},
+    {name: "Municipio"},
+    {name: "Descripción"},
+    {name: "Encargado"},
     {name: "Acción"},
   ]
 
   return (
     <TableGlobal
       datos={datos}
-      set={set}
+      setDatos={setDatos}
       Delete={handleDeleteConfirm}
       setOpenDelete={setOpenDelete}
       openDelete={openDelete}

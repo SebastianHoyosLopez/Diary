@@ -23,7 +23,7 @@ const Create = () => {
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Historico serenatas</h2>
+      <h2 style={{ textAlign: "center" }}>Historico serenatas: {history.length}</h2>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <TableGlobal datos={history} columns={columns} />
       </div>

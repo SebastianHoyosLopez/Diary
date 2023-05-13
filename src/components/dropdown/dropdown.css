@@ -1,0 +1,26 @@
+.dropdown-menu {
+  max-width: 100%;
+  text-align: center;
+}
+
+.dropdown-menu h4 {
+    cursor: pointer;
+    text-align: center;   
+    border: 1px solid black 
+  }
+  
+  .dropdown-menu table {
+    border-collapse: collapse;
+    width: 100%; 
+  }
+  
+  .dropdown-menu th, td {
+    border: 1px solid #ddd; 
+    padding: 8px; 
+    text-align: left; 
+  }
+  
+  .dropdown-menu th {
+    background-color: #4CAF50; 
+  }
+  

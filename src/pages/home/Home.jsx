@@ -6,19 +6,20 @@ const Home = () => {
   const [db, setDb] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/serenatas')
+    fetch("http://localhost:3000/serenatas")
       .then((res) => res.json())
       .then((response) => {
-        setDb(response)
-      })
-  }, [])
+        setDb(response);
+      });
+  }, []);
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Horarios serenatas Cantidad de serenatas: {db.length}</h2>
+      <h2 style={{ textAlign: "center" }}>
+        Horarios serenatas:  {db.length}
+      </h2>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <Form setDb={setDb} db={db} />
-        <ContainerData set={setDb} datos={db} />
+        <ContainerData setDatos={setDb} datos={db} />
       </div>
     </div>
   );

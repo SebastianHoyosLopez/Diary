@@ -31,7 +31,7 @@ const municipalitys = [
   "San Luis",
   "San Rafael",
   "San Vicente",
-  "Santuario"
+  "Santuario",
 ];
 
 function Form({ setDb, db, order, onClose }) {
@@ -58,7 +58,13 @@ function Form({ setDb, db, order, onClose }) {
       return;
     }
 
-    const data = { date, hour, description, responsibleOfId: parseInt(responsibleOfId), municipality };
+    const data = {
+      date,
+      hour,
+      description,
+      responsibleOfId: parseInt(responsibleOfId),
+      municipality,
+    };
 
     if (order) {
       axios
@@ -76,7 +82,7 @@ function Form({ setDb, db, order, onClose }) {
         })
         .catch((error) => console.log(error));
     } else {
-      console.log(data)
+      console.log(data);
       axios
         .post("http://localhost:3000/serenatas", data)
         .then((response) => {
@@ -131,13 +137,13 @@ function Form({ setDb, db, order, onClose }) {
           <option value="">Selecione Encargado ----</option>
           {Responsibles.map((responsible) => (
             <option key={responsible.code} value={responsible.code}>
-              {responsible.code}
+              {responsible.name}
             </option>
           ))}
         </select>
         <br />
         <select
-          value={municipality  != null ? municipality : ""}
+          value={municipality != null ? municipality : ""}
           onChange={(e) => setMunicipality(e.target.value)}
         >
           <option value="">Seleccione un municipio ---</option>

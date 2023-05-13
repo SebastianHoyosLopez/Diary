@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 import "./ModalConfirmacion.css";
 import Form from "../form/Form";
 
-function ModalEdit({ isOpen, onClose, data, set, db }) {
+function ModalEdit({ isOpen, onClose, data, setDatos, db }) {
   const handleCloseModal = () => {
     onClose();
   };
@@ -19,7 +19,7 @@ function ModalEdit({ isOpen, onClose, data, set, db }) {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Form
           order={data}
-          setDb={set}
+          setDb={setDatos}
           db={db}
           handleCloseModal={handleCloseModal}
           onClose={onClose}
