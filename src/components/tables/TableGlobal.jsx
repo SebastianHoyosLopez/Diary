@@ -22,8 +22,6 @@ const TableGlobal = ({
   const [tablaDatos, setTablaDatos] = useState([]);
   const [open, setOpen] = useState(false);
 
-  console.log(datos);
-
   useEffect(() => {
     setTablaDatos(datos);
   }, [datos, setDatos, setTablaDatos]);
@@ -43,7 +41,7 @@ const TableGlobal = ({
       <thead>
         <tr>
           {columns.map((column) => (
-            <th>{column.name}</th>
+            <th key={column.name}>{column.name}</th>
           ))}
         </tr>
       </thead>
@@ -56,7 +54,8 @@ const TableGlobal = ({
             return (
               <tr key={dato.id}>
                 <td>
-                  {dato.date}-{dayOfWeek}
+                  {dato.date}
+                  {/* -{dayOfWeek} */}
                 </td>
                 <td>{dato.hour}</td>
                 <td>{dato.municipality}</td>

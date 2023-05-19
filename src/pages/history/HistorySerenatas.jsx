@@ -5,13 +5,16 @@ import TableGlobal from "../../components/tables/TableGlobal";
 const Create = () => {
   const [history, setHistory] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [elementsPerPage, setElementsPerPage] = useState(10);
+
   useEffect(() => {
-    fetch("http://localhost:3000/serenatas/history")
+    fetch(`http://localhost:3000/serenatas/history?limit=${elementsPerPage}&offset=${currentPage}`)
       .then((res) => res.json())
       .then((response) => {
         setHistory(response);
       });
-  }, []);
+  }, [currentPage, elementsPerPage]);
 
   const columns = [
     { name: "Fecha 📆" },
@@ -27,6 +30,24 @@ const Create = () => {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <TableGlobal datos={history} columns={columns} />
       </div>
+      <button
+          disabled={currentPage <= 0 && true}
+          onClick={() =>
+            setCurrentPage(
+              currentPage >= 5
+                ? currentPage - elementsPerPage
+                : (currentPage)
+            )
+          }
+        >
+          Anterior
+        </button>
+        <button
+          disabled={history.length < elementsPerPage && true}
+          onClick={() => setCurrentPage(currentPage + elementsPerPage)}
+        >
+          siguiente
+        </button>
     </div>
   );
 };

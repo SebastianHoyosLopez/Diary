@@ -3,7 +3,13 @@ import React, { useState } from "react";
 import "./table.css";
 import TableGlobal from "./TableGlobal";
 
-function ContainerData({ datos, setDatos }) {
+function ContainerData({
+  datos,
+  setDatos,
+  setCurrentPage,
+  currentPage,
+  elementsPerPage,
+}) {
   const [openDelete, setOpenDelete] = useState(false);
   const [tablaDatos, setTablaDatos] = useState([]);
 
@@ -26,23 +32,45 @@ function ContainerData({ datos, setDatos }) {
   };
 
   const columns = [
-    {name: "Fecha"},
-    {name: "Hora"},
-    {name: "Municipio"},
-    {name: "Descripción"},
-    {name: "Encargado"},
-    {name: "Acción"},
-  ]
+    { name: "Fecha" },
+    { name: "Hora" },
+    { name: "Municipio" },
+    { name: "Descripción" },
+    { name: "Encargado" },
+    { name: "Acción" },
+  ];
 
   return (
-    <TableGlobal
-      datos={datos}
-      setDatos={setDatos}
-      Delete={handleDeleteConfirm}
-      setOpenDelete={setOpenDelete}
-      openDelete={openDelete}
-      columns={columns}
-    />
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <TableGlobal
+        datos={datos}
+        setDatos={setDatos}
+        Delete={handleDeleteConfirm}
+        setOpenDelete={setOpenDelete}
+        openDelete={openDelete}
+        columns={columns}
+      />
+      <div>
+        <button
+          disabled={currentPage <= 0 && true}
+          onClick={() =>
+            setCurrentPage(
+              currentPage >= 5
+                ? currentPage - elementsPerPage
+                : (currentPage = 0)
+            )
+          }
+        >
+          Anterior
+        </button>
+        <button
+          disabled={datos.length < elementsPerPage && true}
+          onClick={() => setCurrentPage(currentPage + elementsPerPage)}
+        >
+          siguiente
+        </button>
+      </div>
+    </div>
   );
 }
 

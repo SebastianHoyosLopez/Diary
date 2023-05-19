@@ -20,7 +20,7 @@ const municipalitys = [
   "El Peñol",
   "Granada",
   "Guarne",
-  "Guatape",
+  "Guatapé",
   "La Ceja",
   "La Unión",
   "Marinilla",
