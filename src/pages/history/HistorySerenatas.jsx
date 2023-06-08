@@ -6,7 +6,16 @@ const Create = () => {
   const [history, setHistory] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const [elementsPerPage, setElementsPerPage] = useState(10);
+  const [historyTotal, setHistoryTotal] = useState([])
+  const [elementsPerPage, setElementsPerPage] = useState(15);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/serenatas/history`)
+      .then((res) => res.json())
+      .then((response) => {
+        setHistoryTotal(response);
+      });
+  }, []);
 
   useEffect(() => {
     fetch(`http://localhost:3000/serenatas/history?limit=${elementsPerPage}&offset=${currentPage}`)
@@ -26,7 +35,7 @@ const Create = () => {
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Historico serenatas: {history.length}</h2>
+      <h2 style={{ textAlign: "center" }}>Historico serenatas: {historyTotal.length}</h2>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <TableGlobal datos={history} columns={columns} />
       </div>

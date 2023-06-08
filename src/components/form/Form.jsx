@@ -3,11 +3,12 @@ import "./form.css";
 import axios from "axios";
 
 const Responsibles = [
-  { name: "Henry", code: 2 },
-  { name: "Tatan", code: 4 },
+  { name: "Henry", code: 1 },
+  { name: "Tatan", code: 2 },
   { name: "Alex", code: 3 },
-  { name: "Camilo", code: 6 },
-  { name: "Hugo", code: 7 },
+  { name: "chutada", code: 4 },
+  // { name: "Camilo", code: 6 },
+  { name: "Hugo", code: 5 },
 ];
 
 const municipalitys = [
@@ -18,6 +19,7 @@ const municipalitys = [
   "El Carmen de Viboral",
   "El Santuario",
   "El Peñol",
+  "El Retiro",
   "Granada",
   "Guarne",
   "Guatapé",

@@ -6,7 +6,7 @@ const Home = () => {
   const [dbTotal, setDbTotal] = useState([])
 
   const [currentPage, setCurrentPage] = useState(0);
-  const [elementsPerPage, setElementsPerPage] = useState(20);
+  const [elementsPerPage, setElementsPerPage] = useState(15);
 
 
 
