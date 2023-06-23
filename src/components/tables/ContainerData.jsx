@@ -19,7 +19,9 @@ function ContainerData({
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error al realizar la solicitud!");
+          throw new Error(
+            "Error al realizar la solicitud, validar si esta autenticado para realizar el proceso!"
+          );
         }
         const newData = tablaDatos.filter((dato) => dato.id !== id);
         setTablaDatos(newData);

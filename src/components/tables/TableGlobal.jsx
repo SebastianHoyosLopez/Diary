@@ -46,7 +46,7 @@ const TableGlobal = ({
         </tr>
       </thead>
       <tbody>
-        {tablaDatos &&
+        {datos &&
           tablaDatos.map((dato) => {
             const dateObj = new Date(dato.date);
             const options = { weekday: "long" };
