@@ -42,6 +42,7 @@ function Form({ setDb, db, order, onClose }) {
   const [description, setDescription] = useState(
     order ? order.description : ""
   );
+
   const [responsibleOfId, setResponsibleOfId] = useState(
     order ? order.responsibleOfId : null
   );
@@ -84,7 +85,6 @@ function Form({ setDb, db, order, onClose }) {
         })
         .catch((error) => console.log(error));
     } else {
-      console.log(data);
       axios
         .post("http://localhost:3000/serenatas", data)
         .then((response) => {
@@ -133,7 +133,7 @@ function Form({ setDb, db, order, onClose }) {
         />
         <br />
         <select
-          value={responsibleOfId != null ? responsibleOfId : ""}
+          value={responsibleOfId !== null ? responsibleOfId : ""}
           onChange={(e) => setResponsibleOfId(e.target.value)}
         >
           <option value="">Selecione Encargado ----</option>

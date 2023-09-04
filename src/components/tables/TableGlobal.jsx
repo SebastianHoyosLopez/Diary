@@ -22,10 +22,11 @@ const TableGlobal = ({
   const [tablaDatos, setTablaDatos] = useState([]);
   const [open, setOpen] = useState(false);
 
+  
   useEffect(() => {
     setTablaDatos(datos);
   }, [datos, setDatos, setTablaDatos]);
-
+  
   const handleDeleteClick = (id) => {
     setElementoEliminar(id);
     setOpenDelete(true);

@@ -52,7 +52,7 @@ function ContainerData({
         openDelete={openDelete}
         columns={columns}
       />
-      <div>
+      {/* <div>
         <button
           disabled={currentPage <= 0 && true}
           onClick={() =>
@@ -71,7 +71,7 @@ function ContainerData({
         >
           siguiente
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

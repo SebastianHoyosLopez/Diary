@@ -14,16 +14,17 @@ const Create = () => {
       .then((res) => res.json())
       .then((response) => {
         setHistoryTotal(response);
+        setHistory(response)
       });
   }, []);
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/serenatas/history?limit=${elementsPerPage}&offset=${currentPage}`)
-      .then((res) => res.json())
-      .then((response) => {
-        setHistory(response);
-      });
-  }, [currentPage, elementsPerPage]);
+  // useEffect(() => {
+  //   fetch(`http://localhost:3000/serenatas/history?limit=${elementsPerPage}&offset=${currentPage}`)
+  //     .then((res) => res.json())
+  //     .then((response) => {
+  //       setHistory(response);
+  //     });
+  // }, [currentPage, elementsPerPage]);
 
   const columns = [
     { name: "Fecha 📆" },
